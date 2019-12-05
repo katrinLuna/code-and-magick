@@ -29,15 +29,17 @@ window.renderStatistics = function (ctx, names, times) {
     var getBarHeightPercent = (times[i] * 100) / maxTimeValue;
     var getBarHeightPx = Math.round((getBarHeightPercent * MAX_BAR_HEIGHT) / 100);
 
-    ctx.fillStyle = 'blue';
+
+    if (names[i] === 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    } else {
+      var saturationIntension = Math.round(Math.random() * 100);
+      ctx.fillStyle = 'hsla(240,' + saturationIntension + '%, 50%, 1)';
+    }
     ctx.fillRect(getBarCoordX, (BAR_START_Y - getBarHeightPx), BAR_WIDTH, getBarHeightPx);
 
+    ctx.fillStyle = '#000000';
     ctx.fillText(names[i], getBarCoordX, (BAR_START_Y + 10));
+    ctx.fillText(Math.round(times[i]), getBarCoordX, (BAR_START_Y - (getBarHeightPx + 20)));
   }
-
-  // console.log(ctx);
-  // console.log(names);
-  // console.log(times);
-
-
 };
