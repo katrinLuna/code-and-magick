@@ -26,8 +26,7 @@ window.renderStatistics = function (ctx, names, times) {
 
   for (var i = 0; i < names.length; i++) {
     var getBarCoordX = ((CLOUD_X + 20) + ((BAR_WIDTH + BAR_GAP) * i));
-    var getBarHeightPercent = (times[i] * 100) / maxTimeValue;
-    var getBarHeightPx = Math.round((getBarHeightPercent * MAX_BAR_HEIGHT) / 100);
+    var getBarHeightPx = Math.round(times[i] / maxTimeValue * MAX_BAR_HEIGHT);
 
 
     if (names[i] === 'Вы') {
