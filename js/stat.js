@@ -2,7 +2,6 @@
 'use strict';
 
 var CLOUD_X = 110;
-var CLOUD_Y = 20;
 var CLOUD_HEIGHT = 270;
 var MAX_BAR_HEIGHT = 150;
 var BAR_WIDTH = 40;
