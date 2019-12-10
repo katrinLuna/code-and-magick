@@ -62,8 +62,8 @@
 
   <div class="demo"></div>
 
-  <div class="setup-open">
-    <img src="./img/user-1.jpg" class="setup-open-icon">
+  <div class="setup-open" >
+    <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="0">
   </div>
 </header>
 
@@ -71,7 +71,8 @@
   <form class="setup-wizard-form"
         method="post"
         enctype="multipart/form-data"
-        autocomplete="off">
+        autocomplete="off"
+        action="https://js.dump.academy/code-and-magick">
 
     <div class="setup-title">
       <div class="setup-user">
@@ -81,12 +82,13 @@
         </div>
         <label>
           <input type="text" name="username"
+                 minlength="2"
                  maxlength="25" required
                  class="setup-user-name" value="Синий Пендальф"/>
         </label>
       </div>
 
-      <span class="setup-close">&times;</span>
+      <span class="setup-close" tabindex="0">&times;</span>
     </div>
 
 
