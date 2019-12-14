@@ -11,6 +11,7 @@ var setupWizard = document.querySelector('.setup-wizard');
 var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
 var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
 var setupWizardFireball = document.querySelector('.setup-fireball-wrap');
+var setupFormElement =document.querySelector('.setup-wizard-form');
 
 
 var namesArr = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
@@ -106,3 +107,25 @@ setupWizardFireball.addEventListener('click', function () {
   document.querySelector('input[name=fireball-color]').value = newFireballColor;
 });
 
+var subBtn = document.querySelector('.setup-submit');
+
+
+userNameInputElement.addEventListener('invalid', function () {
+  if (userNameInputElement.validity.tooShort) {
+    userNameInputElement.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userNameInputElement.validity.tooLong) {
+    userNameInputElement.setCustomValidity('Имя не должно превышать 25-ти символов');
+  }
+});
+// если достаточно браузерных визуализаций ошибок, срабатывает при попытке нажать сабмит и вставляет текст в вывод браузера об ошибке
+
+subBtn.addEventListener('click', function (evt) {
+  // evt.preventDefault(); - можно использовать чтобы вставить всю валидацию на кнопку сабмит, но тогда надо убить нативную функциональность и отправлять форму руками, но тогда убивается и нативное выведение ошибок
+
+  if (userNameInputElement.value.length > 2 && userNameInputElement.value.length < 25) {
+    setupFormElement.submit();
+  }; 
+  // else {
+  //   checkValidity(); преднаписанная функция с проверкой данных на правильность
+  // }
+});
