@@ -11,8 +11,8 @@ var setupWizard = document.querySelector('.setup-wizard');
 var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
 var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
 var setupWizardFireball = document.querySelector('.setup-fireball-wrap');
-var setupFormElement =document.querySelector('.setup-wizard-form');
-
+var setupFormElement = document.querySelector('.setup-wizard-form');
+var subBtn = document.querySelector('.setup-submit');
 
 var namesArr = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var lastnameArr = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -34,6 +34,8 @@ var toogleElementVision = function (element) {
 
 setupOpenElement.addEventListener('click', function () {
   toogleElementVision(setupElement);
+  setupElement.style.top = '80px';
+  setupElement.style.left = '50%';
 });
 
 setupOpenElement.addEventListener('keydown', function (evt) {
@@ -106,8 +108,6 @@ setupWizardFireball.addEventListener('click', function () {
   setupWizardFireball.style.background = newFireballColor;
   document.querySelector('input[name=fireball-color]').value = newFireballColor;
 });
-
-var subBtn = document.querySelector('.setup-submit');
 
 
 userNameInputElement.addEventListener('invalid', function () {
