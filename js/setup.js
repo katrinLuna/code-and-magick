@@ -1,8 +1,5 @@
 'use strict';
 
-var ENTER_KEY = 'Enter';
-var ESC_KEY = 'Escape';
-
 var setupOpenElement = document.querySelector('.setup-open');
 var setupCloseElement = document.querySelector('.setup-close');
 var setupElement = document.querySelector('.setup');
@@ -18,11 +15,15 @@ setupOpenElement.addEventListener('click', function () {
   window.util.toogleElementVision(setupElement);
   setupElement.style.top = '80px';
   setupElement.style.left = '50%';
+  if (!setupElement.classList.contains('hidden')) {
+    window.similarWizard.generateSimilarWizardsElements();
+  }
 });
 
 setupOpenElement.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
+  if (evt.key === window.util.ENTER_KEY) {
     window.util.toogleElementVision(setupElement);
+    window.similarWizard.generateSimilarWizardsElements();
   }
 });
 
@@ -31,15 +32,15 @@ setupCloseElement.addEventListener('click', function () {
 });
 
 setupCloseElement.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
+  if (evt.key === window.util.ENTER_KEY) {
     window.util.toogleElementVision(setupElement);
   }
 });
 
 document.addEventListener('keydown', function (evt) {
-  if (!setupElement.classList.contains('hidden') && evt.key === ESC_KEY && evt.target.className != userNameInputElement.className) {
+  if (!setupElement.classList.contains('hidden') && evt.key === window.util.ESC_KEY && evt.target.className != userNameInputElement.className) {
     window.util.toogleElementVision(setupElement);
-  } else if (evt.key === ESC_KEY && evt.target.className === userNameInputElement.className) {
+  } else if (evt.key === window.util.ESC_KEY && evt.target.className === userNameInputElement.className) {
     userNameInputElement.blur();
   }
 });

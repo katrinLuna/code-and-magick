@@ -2,6 +2,8 @@
 
 (function () {
   window.util = {
+    ENTER_KEY: 'Enter',
+    ESC_KEY: 'Escape',
     toogleElementVision: function (element) {
       element.classList.toggle('hidden');
     },
