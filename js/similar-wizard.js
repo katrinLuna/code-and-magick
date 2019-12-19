@@ -1,16 +1,9 @@
 'use strict';
 
 (function () {
-  const namesArr = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  const lastnameArr = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   const similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  const setupSimilarListElement = document.querySelector('.setup-similar-list');
   const setupSimilarElement = document.querySelector('.setup-similar');
   const wizardSampleCount = 4;
-
-  let onError = function (error) {
-    console.error(error);
-  };
 
   setupSimilarElement.classList.toggle('hidden');
 
@@ -19,7 +12,7 @@
     let wizardData = data;
 
     for (var i = 0; i < wizardSampleCount; i++) {
-      let newWizard = wizardData[window.util.getRandomNumber(0, namesArr.length - 1)];
+      let newWizard = wizardData[window.util.getRandomNumber(0, wizardData.length - 1)];
       wizardsBioArr.push(
           {
             name: newWizard.name,
@@ -29,14 +22,11 @@
       );
     }
 
-    console.log(wizardsBioArr);
-
     return wizardsBioArr;
   };
 
   var generateSimilarWizardsElements = function (data) {
-    var fragment = document.createDocumentFragment();   
-    setupSimilarListElement.innerHTML = '';
+    var fragment = document.createDocumentFragment();
     var wizardsBioArr = getRandomBio(data);
 
     for (var j = 0; j < wizardsBioArr.length; j++) {
@@ -47,11 +37,10 @@
       fragment.appendChild(newWizard);
     }
 
-    setupSimilarListElement.appendChild(fragment);
+    return fragment;
   };
-  
+
   window.similarWizard = {
-    generateSimilarWizardsElements: generateSimilarWizardsElements,
-    onError: onError
+    generateSimilarWizardsElements: generateSimilarWizardsElements
   };
 })();

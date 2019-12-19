@@ -10,15 +10,24 @@ var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
 var setupWizardFireball = document.querySelector('.setup-fireball-wrap');
 var setupFormElement = document.querySelector('.setup-wizard-form');
 var subBtn = document.querySelector('.setup-submit');
+const setupSimilarListElement = document.querySelector('.setup-similar-list');
+
+let addSimilarWizard = function () {
+  setupSimilarListElement.innerHTML = '';
+
+  if (!setupElement.classList.contains('hidden')) {
+    window.backend.load((data) => {
+      var fragment = window.similarWizard.generateSimilarWizardsElements(data);
+      setupSimilarListElement.appendChild(fragment);
+    }, window.util.onError);
+  }
+};
 
 setupOpenElement.addEventListener('click', function () {
   window.util.toogleElementVision(setupElement);
   setupElement.style.top = '80px';
   setupElement.style.left = '50%';
-  if (!setupElement.classList.contains('hidden')) {
-    window.backend.load(window.similarWizard.generateSimilarWizardsElements, window.similarWizard.onError);
-
-  }
+  addSimilarWizard();
 });
 
 setupOpenElement.addEventListener('keydown', function (evt) {
