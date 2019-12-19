@@ -1,5 +1,16 @@
 'use strict';
 
+var onSucess = function (data) {
+  let hi = data;
+  console.log(hi[0]);
+};
+
+var onError = function (error) {
+  console.error(error);
+};
+
+window.backend.load(onSucess, onError);
+
 (function () {
   var namesArr = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
   var lastnameArr = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
