@@ -1,46 +1,43 @@
 'use strict';
 
-var onSucess = function (data) {
-  let hi = data;
-  console.log(hi[0]);
-};
-
-var onError = function (error) {
-  console.error(error);
-};
-
-window.backend.load(onSucess, onError);
-
 (function () {
-  var namesArr = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var lastnameArr = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var setupSimilarListElement = document.querySelector('.setup-similar-list');
-  var wizardSampleCount = 4;
+  const namesArr = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  const lastnameArr = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+  const similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+  const setupSimilarListElement = document.querySelector('.setup-similar-list');
+  const setupSimilarElement = document.querySelector('.setup-similar');
+  const wizardSampleCount = 4;
 
-  var createRandomBio = function () {
-    var wizardsBioArr = [];
+  let onError = function (error) {
+    console.error(error);
+  };
+
+  setupSimilarElement.classList.toggle('hidden');
+
+  let getRandomBio = function (data) {
+    let wizardsBioArr = [];
+    let wizardData = data;
 
     for (var i = 0; i < wizardSampleCount; i++) {
+      let newWizard = wizardData[window.util.getRandomNumber(0, namesArr.length - 1)];
       wizardsBioArr.push(
           {
-            name: namesArr[window.util.getRandomNumber(0, namesArr.length - 1)] + ' ' + lastnameArr[window.util.getRandomNumber(0, lastnameArr.length - 1)],
-            coatColor: window.util.coatColorArr[window.util.getRandomNumber(0, window.util.coatColorArr.length - 1)],
-            eyesColor: window.util.eyesColorArr[window.util.getRandomNumber(0, window.util.eyesColorArr.length - 1)]
+            name: newWizard.name,
+            coatColor: newWizard.colorCoat,
+            eyesColor: newWizard.colorEyes
           }
       );
     }
 
+    console.log(wizardsBioArr);
+
     return wizardsBioArr;
   };
 
-  var setupSimilarElement = document.querySelector('.setup-similar');
-  setupSimilarElement.classList.toggle('hidden');
-
-  var generateSimilarWizardsElements = function () {
+  var generateSimilarWizardsElements = function (data) {
     var fragment = document.createDocumentFragment();   
     setupSimilarListElement.innerHTML = '';
-    var wizardsBioArr = createRandomBio();
+    var wizardsBioArr = getRandomBio(data);
 
     for (var j = 0; j < wizardsBioArr.length; j++) {
       var newWizard = similarWizardTemplate.cloneNode(true);
@@ -52,8 +49,9 @@ window.backend.load(onSucess, onError);
 
     setupSimilarListElement.appendChild(fragment);
   };
-
+  
   window.similarWizard = {
-    generateSimilarWizardsElements: generateSimilarWizardsElements
+    generateSimilarWizardsElements: generateSimilarWizardsElements,
+    onError: onError
   };
 })();

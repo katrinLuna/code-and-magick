@@ -16,14 +16,16 @@ setupOpenElement.addEventListener('click', function () {
   setupElement.style.top = '80px';
   setupElement.style.left = '50%';
   if (!setupElement.classList.contains('hidden')) {
-    window.similarWizard.generateSimilarWizardsElements();
+    window.backend.load(window.similarWizard.generateSimilarWizardsElements, window.similarWizard.onError);
+
   }
 });
 
 setupOpenElement.addEventListener('keydown', function (evt) {
   if (evt.key === window.util.ENTER_KEY) {
     window.util.toogleElementVision(setupElement);
-    window.similarWizard.generateSimilarWizardsElements();
+    window.backend.load(window.similarWizard.generateSimilarWizardsElements, window.similarWizard.onError);
+
   }
 });
 
