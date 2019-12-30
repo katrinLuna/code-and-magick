@@ -5,30 +5,32 @@
   const SUCESS_SERVER_CODE = 200;
 
   window.backend = {
-    load: function (onLoad, onError) {
-      let xhr = new XMLHttpRequest();
-      xhr.responseType = 'json';
-      
-      xhr.addEventListener('load', function () {
-        if (xhr.status === SUCESS_SERVER_CODE) {
-          onLoad(xhr.response);
-        } else {
-          onError('Произошла ошибка ' + xhr.status + ' ' + xhr.statusText);
-        }
-      });
+    load: function () {
+      return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        
+        xhr.addEventListener('load', function () {
+          if (xhr.status === SUCESS_SERVER_CODE) {
+            resolve(xhr.response);
+          } else {
+            reject('Произошла ошибка ' + xhr.status + ' ' + xhr.statusText);
+          }
+        });
 
-      xhr.addEventListener('error', function () {
-        onError('Произошла ошибка соединения');
-      });
+        xhr.addEventListener('error', function () {
+          reject('Произошла ошибка соединения');
+        });
 
-      xhr.addEventListener ('timeout', function () {
-        onError('Соединения не произошло за ' + xhr.timeout + 'сек');
-      });
+        xhr.addEventListener ('timeout', function () {
+          reject('Соединения не произошло за ' + xhr.timeout + 'сек');
+        });
 
-      xhr.timeout = 10000;
-      
-      xhr.open('GET', DOWMLOAD_URL);
-      xhr.send();
+        xhr.timeout = 10000;
+        
+        xhr.open('GET', DOWMLOAD_URL);
+        xhr.send();
+      });
     },
     save: 2
   }

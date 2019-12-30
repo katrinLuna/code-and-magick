@@ -16,10 +16,11 @@ let addSimilarWizard = function () {
   setupSimilarListElement.innerHTML = '';
 
   if (!setupElement.classList.contains('hidden')) {
-    window.backend.load((data) => {
+    window.backend.load().then((data) => {
       var fragment = window.similarWizard.generateSimilarWizardsElements(data);
       setupSimilarListElement.appendChild(fragment);
-    }, window.util.onError);
+    },
+      window.util.onError);
   }
 };
 
@@ -33,8 +34,9 @@ setupOpenElement.addEventListener('click', function () {
 setupOpenElement.addEventListener('keydown', function (evt) {
   if (evt.key === window.util.ENTER_KEY) {
     window.util.toogleElementVision(setupElement);
-    window.backend.load(window.similarWizard.generateSimilarWizardsElements, window.similarWizard.onError);
-
+    setupElement.style.top = '80px';
+    setupElement.style.left = '50%';
+    addSimilarWizard();
   }
 });
 

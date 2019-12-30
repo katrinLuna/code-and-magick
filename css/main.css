@@ -1023,3 +1023,7 @@ input[type=radio]:checked + .review-mark-label
 .setup-open-icon:focus {
     border: 2px solid pink;
 }
+
+.setup-similar-list {
+    min-height: 205px;
+}
