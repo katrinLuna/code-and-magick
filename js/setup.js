@@ -16,11 +16,13 @@ let addSimilarWizard = function () {
   setupSimilarListElement.innerHTML = '';
 
   if (!setupElement.classList.contains('hidden')) {
-    window.backend.load().then((data) => {
-      var fragment = window.similarWizard.generateSimilarWizardsElements(data);
-      setupSimilarListElement.appendChild(fragment);
+    window.backend.load()
+      .then((info) => {
+        console.log(info);
+        var fragment = window.similarWizard.generateSimilarWizardsElements(info);
+        setupSimilarListElement.appendChild(fragment);
     },
-      window.util.onError);
+      error => window.util.onError(error));
   }
 };
 
