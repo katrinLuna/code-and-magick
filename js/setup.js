@@ -18,7 +18,6 @@ let addSimilarWizard = function () {
   if (!setupElement.classList.contains('hidden')) {
     window.backend.load()
       .then((info) => {
-        console.log(info);
         var fragment = window.similarWizard.generateSimilarWizardsElements(info);
         setupSimilarListElement.appendChild(fragment);
     },
