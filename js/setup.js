@@ -9,7 +9,7 @@ var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
 var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
 var setupWizardFireball = document.querySelector('.setup-fireball-wrap');
 var setupFormElement = document.querySelector('.setup-wizard-form');
-var subBtn = document.querySelector('.setup-submit');
+let subBtn = document.querySelector('.setup-submit');
 const setupSimilarListElement = document.querySelector('.setup-similar-list');
 
 let addSimilarWizard = function () {
@@ -85,13 +85,15 @@ userNameInputElement.addEventListener('invalid', function () {
     userNameInputElement.setCustomValidity('Имя не должно превышать 25-ти символов');
   }
 });
-// если достаточно браузерных визуализаций ошибок, срабатывает при попытке нажать сабмит и вставляет текст в вывод браузера об ошибке
 
 subBtn.addEventListener('click', function (evt) {
-  // evt.preventDefault(); - можно использовать чтобы вставить всю валидацию на кнопку сабмит, но тогда надо убить нативную функциональность и отправлять форму руками, но тогда убивается и нативное выведение ошибок
-
+   
   if (userNameInputElement.value.length > 2 && userNameInputElement.value.length < 25) {
-    setupFormElement.submit();
+    evt.preventDefault();
+    let formData = new FormData(setupFormElement);
+    window.backend.save(formData).then(
+      result => console.log(result)
+    );
   }; 
   // else {
   //   checkValidity(); преднаписанная функция с проверкой данных на правильность

@@ -2,10 +2,11 @@
 
 (function () {
   const DOWMLOAD_URL = 'https://js.dump.academy/code-and-magick/data';
+  const UPLOAD_URL = 'https://js.dump.academy/code-and-magick';
   const TIMEOUT = 5000;
 
   window.backend = {
-    load: async function () {
+    load: function () {
       let checkResponse; 
       let controller = new AbortController();
       let serverResponse = fetch(DOWMLOAD_URL, {
@@ -27,10 +28,33 @@
         if (checkResponse.ok) {
           return data.json();
         } else {
-          throw new Error('Данные не получены из-за из-за ошибки ' + checkResponse.status);
+          throw new Error('Данные не получены из-за ошибки ' + checkResponse.status);
         };        
       });
     },
-    save: 2
+    save: function (data) {
+      let uploadInfo = fetch(UPLOAD_URL, {
+        method: 'POST',
+        body: data
+      })
+        .then(
+          result => {
+            if (result.ok) {
+              return result.json();
+            } else {
+              throw new Error('Сервер ответил, но данные не получены из-за ошибки ' + result.status)
+            }
+          }
+        )
+        .then(
+            result => {
+              return result
+            },
+            error => {
+              throw  new Error('Данные не получены из-за ошибки ' + error);
+            }
+        );
+      return uploadInfo;
+    }
   }
 })();
