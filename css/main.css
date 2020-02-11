@@ -1027,3 +1027,31 @@ input[type=radio]:checked + .review-mark-label
 .setup-similar-list {
     min-height: 205px;
 }
+
+.data-upload-error {
+    position: fixed;
+    top: 41%;
+    left: 50%;
+    box-sizing: border-box;
+    z-index: 10;
+    width: 400px;
+    height: 200px;
+    padding: 30px;
+    padding-top: 83px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    background-color: #3a8484;
+    background-image: url('https://katrinluna.github.io/kekstagram/img/icon-warning.svg');
+    background-repeat: no-repeat;
+    background-position: center 20px;
+    color: #ffe753;
+    border: 2px solid white;
+}
+
+.data-upload-error > .error__links {
+    margin-top: 30px;
+}
+
+.data-upload-error .error__link {
+    color: white;
+}

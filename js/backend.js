@@ -33,7 +33,7 @@
       });
     },
     save: function (data) {
-      let uploadInfo = fetch(UPLOAD_URL, {
+      return fetch(UPLOAD_URL, {
         method: 'POST',
         body: data
       })
@@ -51,10 +51,9 @@
               return result
             },
             error => {
-              throw  new Error('Данные не получены из-за ошибки ' + error);
+              throw  new Error('Данные не отправлены из-за ошибки ' + error);
             }
         );
-      return uploadInfo;
     }
   }
 })();
