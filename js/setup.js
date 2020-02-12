@@ -15,7 +15,10 @@
   let errorMessElement = document.querySelector('.data-upload-error');
   let reloadUpdateBtn = errorMessElement.querySelector('.error__link--try-again');
   let cashedData;
-  let wizardAttributes = {};
+  let wizardAttributes = {
+    coat: setupWizardCoat.style.fill,
+    eyes: setupWizardEyes.style.fill
+  };
 
   let addSimilarWizards = async function (isRandom) {
     setupSimilarListElement.innerHTML = '';
@@ -31,9 +34,9 @@
           error => window.util.onError(error)
           );
     } else {
-      // let sortedWizardArr = window.similarWizard.sortingSimilarWizards(cashedData, wizardAttributes);
-      // fragment = window.similarWizard.generateSimilarWizardsElements(sortedWizardArr, false);
-      // запускаем сортинг и его данные записанные в переменную массива передаем первым аргументом в  generateSimilarWizardsElements
+      let sortedWizardArr = window.similarWizard.sortingSimilarWizards(cashedData, wizardAttributes);
+      console.log(wizardAttributes);
+      fragment = window.similarWizard.generateSimilarWizardsElements(sortedWizardArr, false);
     }
 
     setupSimilarListElement.appendChild(fragment);
@@ -86,7 +89,7 @@
     setupWizardCoat.style.fill = newCoatColor;
     document.querySelector('input[name=coat-color]').value = newCoatColor;
     wizardAttributes.coat = newCoatColor;
-    // addSimilarWizards(false);
+    addSimilarWizards(false);
   });
 
   setupWizardEyes.addEventListener('click', function () {
@@ -94,7 +97,7 @@
     setupWizardEyes.style.fill = newEyesColor;
     document.querySelector('input[name=eyes-color]').value = newEyesColor;
     wizardAttributes.eyes = newEyesColor;
-    // addSimilarWizards(false);
+    addSimilarWizards(false);
   });
 
   setupWizardFireball.addEventListener('click', function () {

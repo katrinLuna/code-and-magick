@@ -16,8 +16,8 @@
       wizardsBioArr.push(
           {
             name: newWizard.name,
-            coatColor: newWizard.colorCoat,
-            eyesColor: newWizard.colorEyes
+            colorCoat: newWizard.colorCoat,
+            colorEyes: newWizard.colorEyes
           }
       );
     }
@@ -37,9 +37,11 @@
 
     for (let j = 0; j < wizardSampleCount; j++) {
       let newWizard = similarWizardTemplate.cloneNode(true);
+      console.log(wizardsBioArr[j]);
       newWizard.querySelector('.setup-similar-label').textContent = wizardsBioArr[j].name;
-      newWizard.querySelector('.wizard-coat').setAttribute('fill', wizardsBioArr[j].coatColor);
-      newWizard.querySelector('.wizard-eyes').setAttribute('fill', wizardsBioArr[j].eyesColor);
+      newWizard.querySelector('.wizard-coat').setAttribute('fill', wizardsBioArr[j].colorCoat);
+      newWizard.querySelector('.wizard-eyes').setAttribute('fill', wizardsBioArr[j].colorEyes);
+      console.log(newWizard);
       fragment.appendChild(newWizard);
     }
 
@@ -47,13 +49,19 @@
   };
 
   let sortingSimilarWizards = function (wizardsArr, matchArgArr) {
-    // начала должны показываться волшебники, у которых совпадает цвет плаща и цвет глаз, 
-    // затем волшебники, у которых совпадает только цвет плаща, затем волшебники с таким же цветом глаз
+
+    wizardsArr.forEach(function (item, index, arr) {
+      item.similarityScore = (item.colorCoat === matchArgArr.coat ? 2 : 0);
+      item.similarityScore += item.colorEyes === matchArgArr.eyes ? 1 : 0;
+    });
     
+    return wizardsArr.sort(function (a, b) {
+      return b.similarityScore - a.similarityScore;
+    });
   }
 
   window.similarWizard = {
     generateSimilarWizardsElements: generateSimilarWizardsElements,
-    sortingSimilarWizar: sortingSimilarWizards
+    sortingSimilarWizards: sortingSimilarWizards
   };
 })();
