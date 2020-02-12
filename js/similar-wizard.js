@@ -11,7 +11,7 @@
     let wizardsBioArr = [];
     let wizardData = data;
 
-    for (var i = 0; i < wizardSampleCount; i++) {
+    for (let i = 0; i < wizardSampleCount; i++) {
       let newWizard = wizardData[window.util.getRandomNumber(0, wizardData.length - 1)];
       wizardsBioArr.push(
           {
@@ -25,12 +25,18 @@
     return wizardsBioArr;
   };
 
-  var generateSimilarWizardsElements = function (data) {
-    var fragment = document.createDocumentFragment();
-    var wizardsBioArr = getRandomBio(data);
+  let generateSimilarWizardsElements = function (data, isRandom) {
+    let fragment = document.createDocumentFragment();
+    let wizardsBioArr;
 
-    for (var j = 0; j < wizardsBioArr.length; j++) {
-      var newWizard = similarWizardTemplate.cloneNode(true);
+    if (isRandom) {
+      wizardsBioArr = getRandomBio(data);
+    } else {
+      wizardsBioArr = data;
+    }
+
+    for (let j = 0; j < wizardSampleCount; j++) {
+      let newWizard = similarWizardTemplate.cloneNode(true);
       newWizard.querySelector('.setup-similar-label').textContent = wizardsBioArr[j].name;
       newWizard.querySelector('.wizard-coat').setAttribute('fill', wizardsBioArr[j].coatColor);
       newWizard.querySelector('.wizard-eyes').setAttribute('fill', wizardsBioArr[j].eyesColor);
@@ -40,7 +46,14 @@
     return fragment;
   };
 
+  let sortingSimilarWizards = function (wizardsArr, matchArgArr) {
+    // начала должны показываться волшебники, у которых совпадает цвет плаща и цвет глаз, 
+    // затем волшебники, у которых совпадает только цвет плаща, затем волшебники с таким же цветом глаз
+    
+  }
+
   window.similarWizard = {
-    generateSimilarWizardsElements: generateSimilarWizardsElements
+    generateSimilarWizardsElements: generateSimilarWizardsElements,
+    sortingSimilarWizar: sortingSimilarWizards
   };
 })();

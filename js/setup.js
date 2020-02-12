@@ -14,18 +14,29 @@
   let setupSimilarListElement = document.querySelector('.setup-similar-list');
   let errorMessElement = document.querySelector('.data-upload-error');
   let reloadUpdateBtn = errorMessElement.querySelector('.error__link--try-again');
+  let cashedData;
+  let wizardAttributes = {};
 
-  let addSimilarWizard = function () {
+  let addSimilarWizards = async function (isRandom) {
     setupSimilarListElement.innerHTML = '';
+    let fragment;
 
-    if (!setupElement.classList.contains('hidden')) {
-      window.backend.load()
-        .then((info) => {
-          var fragment = window.similarWizard.generateSimilarWizardsElements(info);
-          setupSimilarListElement.appendChild(fragment);
-      },
-        error => window.util.onError(error));
+    if (!setupElement.classList.contains('hidden') && isRandom) {
+      await window.backend.load()
+        .then(
+          (info) => {
+            cashedData = info;
+            fragment = window.similarWizard.generateSimilarWizardsElements(info, true);
+          }, 
+          error => window.util.onError(error)
+          );
+    } else {
+      // let sortedWizardArr = window.similarWizard.sortingSimilarWizards(cashedData, wizardAttributes);
+      // fragment = window.similarWizard.generateSimilarWizardsElements(sortedWizardArr, false);
+      // запускаем сортинг и его данные записанные в переменную массива передаем первым аргументом в  generateSimilarWizardsElements
     }
+
+    setupSimilarListElement.appendChild(fragment);
   };
 
   let errorUpdateHandler = function () {
@@ -40,7 +51,7 @@
     window.util.toogleElementVision(setupElement);
     setupElement.style.top = '80px';
     setupElement.style.left = '50%';
-    addSimilarWizard();
+    addSimilarWizards(true);
   });
 
   setupOpenElement.addEventListener('keydown', function (evt) {
@@ -48,7 +59,7 @@
       window.util.toogleElementVision(setupElement);
       setupElement.style.top = '80px';
       setupElement.style.left = '50%';
-      addSimilarWizard();
+      addSimilarWizards(true);
     }
   });
 
@@ -74,12 +85,16 @@
     var newCoatColor = window.util.coatColorArr[window.util.getRandomNumber(0, window.util.coatColorArr.length - 1)];
     setupWizardCoat.style.fill = newCoatColor;
     document.querySelector('input[name=coat-color]').value = newCoatColor;
+    wizardAttributes.coat = newCoatColor;
+    // addSimilarWizards(false);
   });
 
   setupWizardEyes.addEventListener('click', function () {
     var newEyesColor = window.util.eyesColorArr[window.util.getRandomNumber(0, window.util.eyesColorArr.length - 1)];
     setupWizardEyes.style.fill = newEyesColor;
     document.querySelector('input[name=eyes-color]').value = newEyesColor;
+    wizardAttributes.eyes = newEyesColor;
+    // addSimilarWizards(false);
   });
 
   setupWizardFireball.addEventListener('click', function () {
